@@ -8,22 +8,17 @@
       <title>Launchstore</title>
 
     {% endblock %}
-
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="/styles.css">
 	</head>
 
 	<body>
-		<header>
-			<div class="links">
-				<a href="/#">Link 1</a>
-				<a href="/#">Link 2</a>
-			</div>
-		</header>
+		{% include "parts/header.njk" %}
 
     {% block content %}
     
     {% endblock %}
 
-		<script src="/scripts.js" type="text/javascript"></script>
+		{% include "parts/footer.njk" %}
 	</body>
 </html>
