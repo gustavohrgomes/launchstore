@@ -1,0 +1,92 @@
+<div class="input-group">
+  <label>Categorias</label>
+  <select name="category_id">
+    {% for category in categories %}
+      <option 
+        value={{ category.id }}
+        {% if product.category_id == category.id%}
+          selected
+        {% endif %}
+      >
+        {{ category.name }}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="input-group">
+  <label>Nome</label>
+  <input 
+    type="text" 
+    name="name"
+    placeholder="Digite o título do anúncio"
+    value="{{ product.name }}"
+  >
+</div>
+
+<div class="input-group">
+  <label>Descrição</label>
+  <textarea name="description">
+    {{ product.description }}
+  </textarea>
+</div>
+
+{# Campo de foto #}
+
+<div class="input-group">
+  <label>Valor</label>
+  
+  <input 
+    type="text" 
+    name="price"
+    placeholder="Digite o preço do produto"
+    value="{{ product.price }}"
+  >
+{% if product.old_price %}
+  <input 
+    type="hidden" 
+    name="old_price" 
+    value={{ product.old_price }}
+  >
+{% endif %}
+</div>
+
+<div class="input-group">
+  <label>Quantidade</label>
+  <input 
+    type="number" 
+    name="quantity"
+    placeholder="Estoque disponível"
+    value="{{ product.quantity }}"
+  >
+</div>
+
+{% if product.status %}
+<div class="input-group">
+  <label>Disponibilidade</label>
+  <div>
+    <span>
+      <input 
+        type="radio"
+        name="status"       
+        value="1" 
+        {% if product.status == '1' %}
+          checked
+        {% endif %}
+      >
+        Sim
+    </span>
+    <span>
+      <input 
+        type="radio" 
+        name="status" 
+        value="0"
+        {% if product.status == '0' %}
+          checked
+        {% endif %}
+      >
+      Não
+    </span>
+  </div>
+</div>
+{% endif %}
