@@ -39,6 +39,7 @@
     name="price"
     placeholder="Digite o preço do produto"
     value="{{ product.price }}"
+    onkeydown="Mask.apply(this, 'formatBRL')"
   >
 {% if product.old_price %}
   <input 
