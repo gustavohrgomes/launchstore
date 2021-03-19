@@ -60,7 +60,7 @@
   >
 </div>
 
-{% if product.status %}
+{% if (product.status == '1') or (product.status == 0)%}
 <div class="input-group">
   <label>Disponibilidade</label>
   <div>

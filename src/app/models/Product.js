@@ -31,4 +31,48 @@ module.exports = {
 
     return db.query(insertIntoProducts, values);
   },
+  find(id) {
+    const selectProduct = `
+      SELECT * FROM products
+      WHERE id = $1
+    `;
+
+    return db.query(selectProduct, [id]);
+  },
+  update(data) {
+    const query = `
+      UPDATE products SET
+        category_id=($1),
+        user_id=($2),
+        name=($3),
+        description=($4),
+        old_price=($5),
+        price=($6),
+        quantity=($7),
+        status=($8)
+      WHERE id = $9
+    `;
+
+    const values = [
+      data.category_id,
+      data.user_id || 1,
+      data.name,
+      data.description,
+      data.old_price,
+      data.price,
+      data.quantity,
+      data.status,
+      data.id,
+    ];
+
+    return db.query(query, values);
+  },
+  delete(id) {
+    const deleteQuery = `
+      DELETE FROM products
+      WHERE id = $1
+    `;
+
+    return db.query(deleteQuery, [id]);
+  },
 };

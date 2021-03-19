@@ -5,6 +5,11 @@
   --primary: #fd951f;
   --primary-dark: #ee6600;
   --secondary: #1fd4fd;
+  --red: #d00000;
+  --red-dark: #9d0208;
+  --purple-light: #9d4edd;
+  --purple: #7b2cbf;
+  --purple-dark: #5a189a;
 }
 
 * {
@@ -63,6 +68,20 @@ textarea {
   cursor: pointer;
 
   transition: all 200ms ease;
+}
+
+.button.edit:hover {
+  background: var(--purple);
+}
+.button.edit {
+  background: var(--purple-light);
+}
+
+.button.delete:hover {
+  background: var(--red);
+}
+.button.delete {
+  background: #bdbdbd;
 }
 
 /* HEADER */
@@ -156,8 +175,17 @@ section.form .header h3 {
   margin-bottom: 1rem;
 }
 
+form .fields {
+  margin-bottom: 4rem
+}
+
 form .input-group {
   margin-bottom: 1rem;
+}
+
+
+form .input-group textarea {
+  min-height: 10rem;
 }
 
 form .input-group > label {
@@ -183,10 +211,16 @@ form .input-group select
   box-shadow: 2px 2px 2px -4px rgba(63, 63, 63, .9);  
 }
 
-form .input-group textarea {
-  min-height: 10rem;
-}
-
-form .fields {
-  margin-bottom: 4rem
+form .input-group span {
+  padding: 8px 16px;
+  background-color: var(--primary);
+  border-radius: 16px;
+  color: #fff;
+  margin-right: 4px;
+  margin-top: 8px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
 }
