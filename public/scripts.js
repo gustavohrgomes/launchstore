@@ -37,8 +37,8 @@ const PhotosUpload = {
     });
   },
   hasLimit(event) {
-    const { files: fileList } = event.target;
     const { uploadLimit } = PhotosUpload;
+    const { files: fileList } = event.target;
 
     if (fileList.length > uploadLimit) {
       alert(`Envie no máximo ${uploadLimit} fotos`);
@@ -53,10 +53,25 @@ const PhotosUpload = {
 
     div.classList.add("photo");
 
-    div.onclick = () => alert("Remover Foto?");
+    div.onclick = PhotosUpload.removePhoto;
 
     div.appendChild(image);
+    div.appendChild(PhotosUpload.getRemoveButton());
 
     return div;
+  },
+  getRemoveButton() {
+    const button = document.createElement("i");
+    button.classList.add("material-icons");
+    button.innerHTML = "close";
+
+    return button;
+  },
+  removePhoto(event) {
+    const photoDiv = event.target.parentNode;
+    const photoArray = Array.from(PhotosUpload.preview.children);
+    const index = photoArray.indexOf(photoDiv);
+
+    photoDiv.remove();
   },
 };
