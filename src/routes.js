@@ -1,6 +1,7 @@
 const express = require("express");
 const routes = express.Router();
 const multer = require("./app/middlewares/multer");
+
 const ProductsController = require("./app/controllers/ProductsController");
 
 routes.get("/", (req, res) => {
