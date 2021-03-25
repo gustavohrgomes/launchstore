@@ -25,7 +25,7 @@ const PhotosUpload = {
 
     if (PhotosUpload.hasLimit(event)) return;
 
-    Array.from(fileList).forEach((file) => {
+    Array.from(fileList).forEach(file => {
       PhotosUpload.files.push(file);
 
       const reader = new FileReader();
@@ -54,7 +54,7 @@ const PhotosUpload = {
     }
 
     const photosDiv = [];
-    preview.childNodes.forEach((item) => {
+    preview.childNodes.forEach(item => {
       if (item.classList && item.classList.value == "photo")
         photosDiv.push(item);
     });
@@ -72,7 +72,7 @@ const PhotosUpload = {
     const dataTransfer =
       new ClipboardEvent("").clipboardData || new DataTransfer();
 
-    PhotosUpload.files.forEach((file) => dataTransfer.items.add(file));
+    PhotosUpload.files.forEach(file => dataTransfer.items.add(file));
 
     return dataTransfer.files;
   },
@@ -102,6 +102,20 @@ const PhotosUpload = {
 
     PhotosUpload.files.splice(index, 1);
     PhotosUpload.input.files = PhotosUpload.getAllFiles();
+
+    photoDiv.remove();
+  },
+  removeOldPhoto(event) {
+    const photoDiv = event.target.parentNode;
+
+    if (photoDiv.id) {
+      const removedFiles = document.querySelector(
+        'input[name="removed_files"]',
+      );
+      if (removedFiles) {
+        removedFiles.value += `${photoDiv.id},`;
+      }
+    }
 
     photoDiv.remove();
   },
