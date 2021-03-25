@@ -75,4 +75,11 @@ module.exports = {
 
     return db.query(deleteQuery, [id]);
   },
+  files(id) {
+    const sql = `
+      SELECT * FROM files WHERE product_id = $1
+    `;
+
+    return db.query(sql, [id]);
+  },
 };
