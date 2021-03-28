@@ -27,3 +27,17 @@ CREATE TABLE "files" (
 ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
 
 ALTER TABLE "files" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+
+/* TRIGGERS & PROCEDURES */
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER $$	
+BEGIN
+	NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON products
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
