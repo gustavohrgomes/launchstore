@@ -55,7 +55,16 @@ module.exports = {
       hour: `${hour}h${minutes}`,
     };
 
-    return res.render("products/show.njk", { product });
+    results = await Product.files(product.id);
+    const files = results.rows.map(file => ({
+      ...file,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace(
+        "public",
+        "",
+      )}`,
+    }));
+
+    return res.render("products/show.njk", { product, files });
   },
   async edit(req, res) {
     let results = await Product.find(req.params.id);
