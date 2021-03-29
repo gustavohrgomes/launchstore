@@ -474,3 +474,25 @@ form .input-group #photos-preview img {
   transition: background 200ms ease-in-out;
 }
 
+/* SHOP */
+.shop h2 {
+  margin: 2.5rem;
+}
+
+.shop .items { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.shop .product {
+  display: grid;
+}
+
+.shop .product .image {
+  padding-top: 56.25%;
+
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
