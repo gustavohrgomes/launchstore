@@ -476,7 +476,7 @@ form .input-group #photos-preview img {
 
 /* SHOP */
 .shop h2 {
-  margin: 2.5rem;
+  margin: 2.5rem 0;
 }
 
 .shop .items { 
@@ -492,7 +492,31 @@ form .input-group #photos-preview img {
 .shop .product .image {
   padding-top: 56.25%;
 
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+
+  margin-bottom: 1.5rem;
+}
+
+.shop .items h4 {
+  margin: .5rem 0;
+  font-weight: normal;
+  color: #999;
+}
+
+.shop .items p {
+  color: #101010;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.shop .product .old-price {
+  padding: 0;
+  margin: .2rem 0;
+
+  font-size: .9rem;
+  color: #999;
+
+  text-decoration: line-through;
 }
