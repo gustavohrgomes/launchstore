@@ -32,12 +32,10 @@ module.exports = {
     let results = await Product.create(req.body);
     const productId = results.rows[0].id;
 
-    const filesPromise = req.files.map(file =>
-      File.create({ ...file, product_id: productId }),
-    );
+    const filesPromise = req.files.map(file => File.create({ ...file, product_id: productId }));
     await Promise.all(filesPromise);
 
-    return res.redirect(`/products/${productId}/edit`);
+    return res.redirect(`/products/${productId}`);
   },
   async show(req, res) {
     let results = await Product.find(req.params.id);
@@ -58,10 +56,7 @@ module.exports = {
     results = await Product.files(product.id);
     const files = results.rows.map(file => ({
       ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        "public",
-        "",
-      )}`,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`,
     }));
 
     return res.render("products/show.njk", { product, files });
@@ -82,10 +77,7 @@ module.exports = {
     let files = results.rows;
     files = files.map(file => ({
       ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace(
-        "public",
-        "",
-      )}`,
+      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`,
     }));
 
     return res.render("products/edit.njk", { product, categories, files });
@@ -100,9 +92,7 @@ module.exports = {
     }
 
     if (req.files.length != 0) {
-      const newFilesPromise = req.files.map(file =>
-        File.create({ ...file, product_id: req.body.id }),
-      );
+      const newFilesPromise = req.files.map(file => File.create({ ...file, product_id: req.body.id }));
 
       await Promise.all(newFilesPromise);
     }
