@@ -520,3 +520,46 @@ form .input-group #photos-preview img {
 
   text-decoration: line-through;
 }
+
+/* SEARCH */
+.search-products {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+
+  margin-top: 2.5rem;
+}
+
+.search-products .header {
+  margin-bottom: 2.5rem;
+
+  font-size: .9rem;
+  color: #333;
+}
+
+.search-products .header h2 {
+  font-size: 1.6rem;
+  text-transform: capitalize;
+
+  margin-bottom: .5rem;
+}
+
+.search-products nav h4 {
+  margin-bottom: 1rem;
+
+  color: #333;
+  font-size: .9rem;
+  text-transform: uppercase;
+}
+
+.search-products nav ul li {
+  margin: .3rem 0;
+}
+
+.search-products nav ul li a {
+  color: #777;
+}
+
+.search-products nav ul li a:hover {
+  color: black;
+  font-weight: bold;
+}
