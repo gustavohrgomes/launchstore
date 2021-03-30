@@ -31,6 +31,8 @@ html,body {
 body {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--background);
+  display: flex;
+  flex-direction: column;
 }
 
 textarea {
@@ -42,6 +44,10 @@ textarea {
   width: 90%;
   max-width: 940px;
   margin: 0 auto;
+}
+
+footer {
+  margin-top: auto;
 }
 
 .button:hover {
@@ -306,4 +312,254 @@ form .input-group #photos-preview img {
 
 #photos-preview .photo:hover i {
   opacity: 1;
+}
+
+/* PRODUCT VIEW */
+.product-single {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  padding: 2rem 1.5rem;
+  margin: 2rem auto;
+
+  box-shadow: 2px 2px 6px -4px rgba(63, 63, 63, 0.9);
+
+  border: 1px solid #efefef;
+  border-radius: 4px;
+}
+
+/* PRODUCT SINGLE GALLERY */
+.product-single .gallery {
+  width: 100%;
+}
+
+.product-single .highlight > img {
+  width: 100%;
+  height: 280px;
+  object-fit: none;
+  object-position: 50% 50%;
+  border: 1px solid #3f3f3f;
+  cursor: zoom-in;
+}
+
+.product-single .gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .3rem;
+}
+
+.product-single .gallery-preview img {
+  height: 100px;
+  width: 100%;
+
+  object-fit: cover;
+
+  opacity: 0.6;
+
+  cursor: pointer;
+
+  transition: opacity 200ms ease-in-out;
+}
+
+.product-single .gallery-preview img:hover,
+.product-single .gallery-preview img.active {
+  opacity: 1;
+}
+
+/* LIGHTBOX SINGLE */
+.product-single .highlight .lightbox-target {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+
+  overflow: hidden;
+  z-index: 100;
+
+  top: -100%;
+  left: 0;
+
+  opacity: 1;
+
+  transition: opacity 400ms;
+}
+
+.product-single .highlight .lightbox-target img {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+
+  width: 90%;
+  height: 90%;
+
+  object-fit: contain;
+}
+
+.product-single .highlight a.lightbox-close {
+  width: 50px;
+  height: 50px;
+  color: white;
+  position: absolute;
+  top: -80px;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 400ms;
+}
+
+/* PRODUCT VIEW INFO */
+.product-single .info {
+  display: grid;
+  grid-template-rows: auto 2.2rem 2fr 1fr;
+}
+
+.product-single .info h1 {
+  font-size: 2rem;
+  line-height: 2.2rem;
+  color: #333;
+}
+
+.product-single .info .published {
+  color: #888;
+  font-size: .8rem;
+  line-height: 1.6rem;
+}
+
+/* PRICE-BUY */
+.product-single .price-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: .5rem;
+  border-top: 1px solid #eee;
+}
+
+.product-single .price-buy .price {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+
+  display: flex;
+  align-items: baseline;
+}
+
+.product-single .price-buy .price .old-price {
+  text-decoration: line-through;
+  font-size: .9rem;
+  font-weight: normal;
+  color: #999;
+
+  margin-left: .5rem
+}
+
+.product-single .price-buy .buy button:hover {
+  background: #2968c8;
+}
+.product-single .price-buy .buy button {
+  background: #3483fa;
+
+  font-size: .9rem;
+  transition: background 200ms ease-in-out;
+}
+
+/* SHOP */
+.shop h2 {
+  margin: 2.5rem 0;
+}
+
+.shop .items { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.shop .product {
+  display: grid;
+}
+
+.shop .product .image {
+  padding-top: 56.25%;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  margin-bottom: 1.5rem;
+}
+
+.shop .items h4 {
+  margin: .5rem 0;
+  font-weight: normal;
+  color: #999;
+}
+
+.shop .items p {
+  color: #101010;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.shop .product .old-price {
+  padding: 0;
+  margin: .2rem 0;
+
+  font-size: .9rem;
+  color: #999;
+
+  text-decoration: line-through;
+}
+
+/* SEARCH */
+.search-products {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+
+  margin-top: 2.5rem;
+}
+
+.search-products .header {
+  margin-bottom: 2.5rem;
+
+  font-size: .9rem;
+  color: #333;
+}
+
+.search-products .header h2 {
+  font-size: 1.6rem;
+  text-transform: capitalize;
+
+  margin-bottom: .5rem;
+}
+
+.search-products nav h4 {
+  margin-bottom: 1rem;
+
+  color: #333;
+  font-size: .9rem;
+  text-transform: uppercase;
+}
+
+.search-products nav ul li {
+  margin: .3rem 0;
+}
+
+.search-products nav ul li a {
+  color: #777;
+}
+
+.search-products nav ul li a:hover {
+  color: black;
+  font-weight: bold;
 }
