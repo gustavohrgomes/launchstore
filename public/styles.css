@@ -203,6 +203,7 @@ form .input-group > label {
   margin-bottom: .4rem;
 }
 
+form .input-group input, 
 form .input-group input[type="text"],
 form .input-group input[type="number"],
 form .input-group textarea,
@@ -566,4 +567,17 @@ form .input-group #photos-preview img {
 .search-products nav ul li a:hover {
   color: black;
   font-weight: bold;
+}
+
+/* USER REGISTER */
+.user-register {
+  max-width: 500px;
+}
+
+.user-register form input[name="cep"],
+.user-register form input[name="password"],
+.user-register form input[name="passwordRepeat"],
+.user-register form input[name="cpf_cnpj"] {
+  display: block;
+  max-width: 60%;
 }

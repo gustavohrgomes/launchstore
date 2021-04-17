@@ -1,0 +1,69 @@
+
+<div class="input-group">
+  <label>Nome Completo</label>
+  <input 
+    type="text" 
+    name="name"
+    placeholder="Digite seu nome completo"
+    value="{{ user.name }}"
+  >
+</div>
+
+<div class="input-group">
+  <label>E-mail</label>
+  <input 
+    type="email" 
+    name="email"
+    placeholder="Digite seu e-mail"
+    value="{{ user.email }}"
+  >
+</div>
+
+<div class="input-group">
+  <label>Senha</label>
+  <input 
+    type="password" 
+    name="password"
+    placeholder="Digite sua senha"
+    value="{{ user.password }}"
+  >
+</div>
+
+{% if not user.id %}
+<div class="input-group">
+  <label>Confirme sua senha</label>
+  <input 
+    type="password" 
+    name="passwordRepeat"
+    placeholder="Digite sua senha novamente"
+  >
+</div>
+{% endif %}
+
+<div class="input-group">
+  <label>CPF/CNPJ</label>
+  <input 
+    type="text" 
+    name="cpf_cnpj"
+    value="{{ user.cpf_cpnj }}"
+    placeholder="Digite o N° do seu documento"
+  >
+</div>
+
+<div class="input-group">
+  <label>CEP</label>
+  <input 
+    type="text" 
+    name="cep"
+    value="{{ user.cep }}"
+  >
+</div>
+
+<div class="input-group">
+  <label>Endereço</label>
+  <input 
+    type="text" 
+    name="address"
+    value="{{ user.address }}"
+  >
+</div>
