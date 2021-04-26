@@ -3,8 +3,8 @@ const routes = express.Router();
 
 const HomeController = require("../app/controllers/HomeController");
 
-const users = require("./users");
-const products = require("./products");
+const users = require("./users.routes");
+const products = require("./products.routes");
 
 routes.use("/products", products);
 routes.use("/users", users);

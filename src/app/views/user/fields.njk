@@ -46,7 +46,8 @@
     type="text" 
     name="cpf_cnpj"
     value="{{ user.cpf_cpnj }}"
-    placeholder="Digite o N° do seu documento"
+    placeholder="Digite seu CPF ou CNPJ"
+    onKeyDown="Mask.apply(this, 'cpfCnpj')"
   >
 </div>
 
@@ -56,6 +57,8 @@
     type="text" 
     name="cep"
     value="{{ user.cep }}"
+    placeholder="00000-000"
+    onKeyDown="Mask.apply(this, 'cep')"
   >
 </div>
 
@@ -65,5 +68,6 @@
     type="text" 
     name="address"
     value="{{ user.address }}"
+    placeholder="Digite seu endereço completo"
   >
 </div>

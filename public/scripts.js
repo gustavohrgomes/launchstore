@@ -12,6 +12,37 @@ const Mask = {
       currency: "BRL",
     }).format(value / 100);
   },
+  cpfCnpj(value) {
+    value = value.replace(/\D/g, "");
+
+    if (value.length > 14) {
+      value = value.slice(0, -1);
+    }
+
+    if (value.length > 11) {
+      value = value.replace(/(\d{2})(\d)/, "$1.$2");
+      value = value.replace(/(\d{3})(\d)/, "$1.$2");
+      value = value.replace(/(\d{3})(\d)/, "$1/$2");
+      value = value.replace(/(\d{4})(\d)/, "$1-$2");
+    } else {
+      value = value.replace(/(\d{3})(\d)/, "$1.$2");
+      value = value.replace(/(\d{3})(\d)/, "$1.$2");
+      value = value.replace(/(\d{3})(\d)/, "$1-$2");
+    }
+
+    return value;
+  },
+  cep(value) {
+    value = value.replace(/\D/g, "");
+
+    if (value.length > 8) {
+      value = value.slice(0, -1);
+    }
+
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+
+    return value;
+  },
 };
 
 const PhotosUpload = {
@@ -55,8 +86,7 @@ const PhotosUpload = {
 
     const photosDiv = [];
     preview.childNodes.forEach(item => {
-      if (item.classList && item.classList.value == "photo")
-        photosDiv.push(item);
+      if (item.classList && item.classList.value == "photo") photosDiv.push(item);
     });
 
     const totalPhotos = fileList.length + photosDiv.length;
@@ -69,8 +99,7 @@ const PhotosUpload = {
     return false;
   },
   getAllFiles() {
-    const dataTransfer =
-      new ClipboardEvent("").clipboardData || new DataTransfer();
+    const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer();
 
     PhotosUpload.files.forEach(file => dataTransfer.items.add(file));
 
@@ -109,9 +138,7 @@ const PhotosUpload = {
     const photoDiv = event.target.parentNode;
 
     if (photoDiv.id) {
-      const removedFiles = document.querySelector(
-        'input[name="removed_files"]',
-      );
+      const removedFiles = document.querySelector('input[name="removed_files"]');
       if (removedFiles) {
         removedFiles.value += `${photoDiv.id},`;
       }
@@ -128,9 +155,7 @@ const ImageGallery = {
   setImage(event) {
     const { target } = event;
 
-    ImageGallery.previews.forEach(preview =>
-      preview.classList.remove("active"),
-    );
+    ImageGallery.previews.forEach(preview => preview.classList.remove("active"));
 
     target.classList.add("active");
 
