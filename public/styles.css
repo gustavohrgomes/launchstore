@@ -7,6 +7,7 @@
   --secondary: #1fd4fd;
   --red: #d00000;
   --red-dark: #9d0208;
+  --error: #e74c3c;
   --purple-light: #9d4edd;
   --purple: #7b2cbf;
   --purple-dark: #5a189a;
@@ -580,4 +581,11 @@ form .input-group #photos-preview img {
 .user-register form input[name="cpf_cnpj"] {
   display: block;
   max-width: 60%;
+}
+
+/* Validate Errors */
+.input-group .error {
+  font-size: 14px;
+  color: var(--error);
+  padding: 5px 8px;
 }
