@@ -83,6 +83,36 @@ const Validate = {
       value,
     };
   },
+  isCpfCnpj(value) {
+    let error = null;
+
+    const cleanValues = value.replace(/\D/g, "");
+
+    if (cleanValues.length > 11 && cleanValues.length !== 14) {
+      error = "CNPJ Incorreto";
+    } else if (cleanValues.length < 12 && cleanValues.length !== 11) {
+      error = "CPF Incorreto";
+    }
+
+    return {
+      error,
+      value,
+    };
+  },
+  isCep(value) {
+    let error = null;
+
+    const cleanValues = value.replace(/\D/g, "");
+
+    if (cleanValues.length !== 8) {
+      error = "CEP Incorreto";
+    }
+
+    return {
+      error,
+      value,
+    };
+  },
 };
 const PhotosUpload = {
   input: "",

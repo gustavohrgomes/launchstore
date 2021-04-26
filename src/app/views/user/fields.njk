@@ -6,6 +6,7 @@
     name="name"
     placeholder="Digite seu nome completo"
     value="{{ user.name }}"
+    required
   >
 </div>
 
@@ -17,6 +18,7 @@
     placeholder="Digite seu e-mail"
     value="{{ user.email }}"
     onblur="Validate.apply(this, 'isEmail')"
+    required
   >
 </div>
 
@@ -27,6 +29,7 @@
     name="password"
     placeholder="Digite sua senha"
     value="{{ user.password }}"
+    required
   >
 </div>
 
@@ -37,6 +40,7 @@
     type="password" 
     name="passwordRepeat"
     placeholder="Digite sua senha novamente"
+    required
   >
 </div>
 {% endif %}
@@ -49,6 +53,8 @@
     value="{{ user.cpf_cpnj }}"
     placeholder="Digite seu CPF ou CNPJ"
     onKeyDown="Mask.apply(this, 'cpfCnpj')"
+    onblur="Validate.apply(this, 'isCpfCnpj')"
+    required
   >
 </div>
 
@@ -60,6 +66,7 @@
     value="{{ user.cep }}"
     placeholder="00000-000"
     onKeyDown="Mask.apply(this, 'cep')"
+    onblur="Validate.apply(this, 'isCep')"
   >
 </div>
 
