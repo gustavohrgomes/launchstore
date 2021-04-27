@@ -5,7 +5,9 @@ async function post(req, res, next) {
   const keys = Object.keys(req.body);
 
   for (value of keys) {
-    if (req.body[value] == "") return res.send("Please, fill in all fields");
+    if (req.body[value] == "") {
+      return res.render("user/register", { user: req.body, error: "Por favor, preencha todos os campos." });
+    }
   }
 
   // check if user exists [email, cpf_cnpj]
@@ -19,10 +21,10 @@ async function post(req, res, next) {
   });
 
   // check if password match
-  if (user) return res.send("User already exists");
+  if (user) return res.render("user/register", { user: req.body, error: "Usuário já cadastrado." });
 
   if (password != passwordRepeat) {
-    return res.send("Password Mismatch");
+    return res.render("user/register", { user: req.body, error: "A confirmação de senha não está igual à senha digitada." });
   }
 
   next();
