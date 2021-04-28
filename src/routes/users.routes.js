@@ -9,7 +9,7 @@ const Validator = require("../app/validators/user");
 // // Login/Logout
 // routes.get("/users/login", SessionController.loginForm);
 // routes.post("/users/login", SessionController.login);
-// routes.post("/users/logout", SessionController.logout);
+routes.post("/logout", SessionController.logout);
 
 // // Reset/Forgot Password
 // routes.get("/forgot-password", SessionController.forgotForm);
