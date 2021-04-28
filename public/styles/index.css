@@ -45,6 +45,10 @@ textarea {
   margin: 0 auto;
 }
 
+button {
+  background: none;
+}
+
 footer {
   margin-top: auto;
 }
