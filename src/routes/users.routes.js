@@ -1,6 +1,8 @@
 const express = require("express");
 const routes = express.Router();
 
+const { IsUserLogged, IsUserAuthenticated } = require("../app/middlewares/session");
+
 const SessionController = require("../app/controllers/SessionController");
 const UserController = require("../app/controllers/UserController");
 
@@ -8,7 +10,7 @@ const UserValidator = require("../app/validators/user");
 const SessionValidator = require("../app/validators/session");
 
 // // Login/Logout
-routes.get("/login", SessionController.loginForm);
+routes.get("/login", IsUserLogged, SessionController.loginForm);
 routes.post("/login", SessionValidator.login, SessionController.login);
 routes.post("/logout", SessionController.logout);
 
@@ -22,7 +24,7 @@ routes.post("/logout", SessionController.logout);
 routes.get("/register", UserController.registerForm);
 routes.post("/register", UserValidator.post, UserController.post);
 
-routes.get("/", UserValidator.show, UserController.show);
+routes.get("/", IsUserAuthenticated, UserValidator.show, UserController.show);
 routes.put("/", UserValidator.update, UserController.put);
 // routes.delete("/", UserControllers.delete);
 

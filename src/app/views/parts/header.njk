@@ -32,8 +32,13 @@
         </li>
         <li class="account">
           <a href="/accounts">
+          {% if session.userId %}
             <i class="material-icons">account_circle</i>
             Minha Conta
+          {% else %}
+            <i class="material-icons">login</i>
+            Entrar
+          {% endif %}
           </a>
           {% if session.userId %}
           <ul class="submenu">
@@ -48,7 +53,10 @@
             </li>
             <li>
               <form action="/users/logout" method="POST">
-                <button>Sair</button>
+                <button class="logout">
+                  <i class="material-icons">logout</i>
+                  Sair
+                </button>
               </form>
             </li>
           </ul>

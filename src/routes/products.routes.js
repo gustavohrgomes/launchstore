@@ -12,10 +12,10 @@ routes.get("/search", SearchController.index);
 // PRODUCTS
 routes.get("/create", IsUserAuthenticated, ProductsController.create);
 routes.get("/:id", ProductsController.show);
-routes.get("/:id/edit", ProductsController.edit);
+routes.get("/:id/edit", IsUserAuthenticated, ProductsController.edit);
 
-routes.post("/", multer.array("photos", 6), ProductsController.post);
-routes.put("/", multer.array("photos", 6), ProductsController.put);
-routes.delete("/", ProductsController.delete);
+routes.post("/", IsUserAuthenticated, multer.array("photos", 6), ProductsController.post);
+routes.put("/", IsUserAuthenticated, multer.array("photos", 6), ProductsController.put);
+routes.delete("/", IsUserAuthenticated, ProductsController.delete);
 
 module.exports = routes;

@@ -4,9 +4,9 @@
 
 .account .submenu { 
   position: absolute;
-  top: 32px;
+  top: 64px;
   left: 0;
-  margin-top: 8px;
+  /* margin-top: 8px; */
   width: 150px;
   display: block;
   background: #FFF;
@@ -40,7 +40,17 @@
 }
 
 .account:hover .submenu {
-  top: 0px;
+  top: 25px;
   opacity: 1;
   visibility: initial;
+}
+
+.account .submenu li button.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account .submenu li button i {
+  margin-right: 4px;
 }
