@@ -40,6 +40,8 @@ async function forgot(req, res, next) {
       });
     }
 
+    req.user = user;
+
     next();
   } catch (error) {
     throw new Error(error);
