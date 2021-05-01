@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const mailer = require("../../lib/mailer");
+const { hash } = require("bcryptjs");
 
 const User = require("../models/User");
 
@@ -58,6 +59,38 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return res.render("session/forgot-password", {
+        error: "Algo inesperado aconteceu, tente novamente.",
+      });
+    }
+  },
+  resetForm(req, res) {
+    return res.render("session/password-reset", { token: req.query.token });
+  },
+  async reset(req, res) {
+    const { user } = req;
+    const { password, token } = req.body;
+
+    try {
+      // criar novo hash de senha
+      const newPassword = await hash(password, 8);
+
+      // atualiza o usuário
+      await User.update(user.id, {
+        password: newPassword,
+        reset_token: "",
+        reset_token_expires: "",
+      });
+
+      // avisa o usuário que ele tem uma nova senha
+      return res.render("session/login", {
+        user: req.body,
+        success: "Senha redefina com sucesso!",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.render("session/password-reset", {
+        token,
+        user: req.body,
         error: "Algo inesperado aconteceu, tente novamente.",
       });
     }
