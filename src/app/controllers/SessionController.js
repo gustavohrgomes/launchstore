@@ -1,8 +1,4 @@
 module.exports = {
-  logout(req, res) {
-    req.session.destroy();
-    return res.redirect("/");
-  },
   loginForm(req, res) {
     return res.render("session/login");
   },
@@ -11,4 +7,12 @@ module.exports = {
 
     return res.redirect("/users");
   },
+  logout(req, res) {
+    req.session.destroy();
+    return res.redirect("/");
+  },
+  forgotForm(req, res) {
+    return res.render("session/forgot-password");
+  },
+  forgot(req, res) {},
 };
