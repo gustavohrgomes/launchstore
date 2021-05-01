@@ -206,7 +206,7 @@ form .input-group > label {
   margin-bottom: .4rem;
 }
 
-form .input-group input, 
+form .input-group input:not(input[type="radio"]), 
 form .input-group input[type="text"],
 form .input-group input[type="number"],
 form .input-group textarea,
