@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-
 :root {
   --background: #f9f9f9;
   --primary: #fd951f;
@@ -7,6 +5,7 @@
   --secondary: #1fd4fd;
   --red: #d00000;
   --red-dark: #9d0208;
+  --error: #e74c3c;
   --purple-light: #9d4edd;
   --purple: #7b2cbf;
   --purple-dark: #5a189a;
@@ -44,6 +43,10 @@ textarea {
   width: 90%;
   max-width: 940px;
   margin: 0 auto;
+}
+
+button {
+  background: none;
 }
 
 footer {
@@ -203,6 +206,7 @@ form .input-group > label {
   margin-bottom: .4rem;
 }
 
+form .input-group input:not(input[type="radio"]), 
 form .input-group input[type="text"],
 form .input-group input[type="number"],
 form .input-group textarea,
@@ -566,4 +570,24 @@ form .input-group #photos-preview img {
 .search-products nav ul li a:hover {
   color: black;
   font-weight: bold;
+}
+
+/* USER REGISTER */
+.user-register {
+  max-width: 500px;
+}
+
+.user-register form input[name="cep"],
+.user-register form input[name="password"],
+.user-register form input[name="passwordRepeat"],
+.user-register form input[name="cpf_cnpj"] {
+  display: block;
+  max-width: 60%;
+}
+
+/* Validate Errors */
+.input-group .error {
+  font-size: 14px;
+  color: var(--error);
+  padding: 5px 8px;
 }
