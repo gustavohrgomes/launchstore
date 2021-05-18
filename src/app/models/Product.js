@@ -1,77 +1,11 @@
 const db = require("../../config/db");
 
+const Base = require("./Base");
+
+Base.init({ table: "products" });
+
 module.exports = {
-  all() {
-    const sql = `
-      SELECT * FROM PRODUCTS
-      ORDER BY updated_at DESC
-    `;
-
-    return db.query(sql);
-  },
-  create(product) {
-    const insertIntoProducts = `
-      INSERT INTO products (
-        category_id,
-        user_id,
-        name,
-        description,
-        old_price,
-        price,
-        quantity,
-        status
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-      RETURNING id
-    `;
-
-    product.price = product.price.replace(/\D/g, "");
-
-    const values = [
-      product.category_id,
-      product.user_id,
-      product.name,
-      product.description,
-      product.old_price || product.price,
-      product.price,
-      product.quantity,
-      product.status || 1,
-    ];
-
-    return db.query(insertIntoProducts, values);
-  },
-  find(id) {
-    const selectProduct = `
-      SELECT * FROM products
-      WHERE id = $1
-    `;
-
-    return db.query(selectProduct, [id]);
-  },
-  update(data) {
-    const query = `
-      UPDATE products SET
-        category_id=($1),
-        name=($2),
-        description=($3),
-        old_price=($4),
-        price=($5),
-        quantity=($6),
-        status=($7)
-      WHERE id = $8
-    `;
-
-    const values = [data.category_id, data.name, data.description, data.old_price, data.price, data.quantity, data.status, data.id];
-
-    return db.query(query, values);
-  },
-  delete(id) {
-    const deleteQuery = `
-      DELETE FROM products
-      WHERE id = $1
-    `;
-
-    return db.query(deleteQuery, [id]);
-  },
+  ...Base,
   files(id) {
     const sql = `
       SELECT * FROM files WHERE product_id = $1
@@ -110,3 +44,34 @@ module.exports = {
     return db.query(query);
   },
 };
+
+// create(product) {
+//   const insertIntoProducts = `
+//     INSERT INTO products (
+//       category_id,
+//       user_id,
+//       name,
+//       description,
+//       old_price,
+//       price,
+//       quantity,
+//       status
+//     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+//     RETURNING id
+//   `;
+
+//   product.price = product.price.replace(/\D/g, "");
+
+//   const values = [
+//     product.category_id,
+//     product.user_id,
+//     product.name,
+//     product.description,
+//     product.old_price || product.price,
+//     product.price,
+//     product.quantity,
+//     product.status || 1,
+//   ];
+
+//   return db.query(insertIntoProducts, values);
+// },
