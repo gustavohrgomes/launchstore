@@ -4,14 +4,16 @@ function find(filters, table) {
   let query = `SELECT * FROM ${table}`;
 
   try {
-    Object.keys(filters).map(key => {
-      // WHERE | OR | AND
-      query += ` ${key}`;
+    if (filters) {
+      Object.keys(filters).map(key => {
+        // WHERE | OR | AND
+        query += ` ${key}`;
 
-      Object.keys(filters[key]).map(field => {
-        query += ` ${field} = '${filters[key][field]}'`;
+        Object.keys(filters[key]).map(field => {
+          query += ` ${field} = '${filters[key][field]}'`;
+        });
       });
-    });
+    }
 
     return db.query(query);
   } catch (error) {

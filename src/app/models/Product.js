@@ -6,14 +6,12 @@ Base.init({ table: "products" });
 
 module.exports = {
   ...Base,
-  files(id) {
-    const sql = `
-      SELECT * FROM files WHERE product_id = $1
-    `;
+  async files(id) {
+    const results = await db.query(`SELECT * FROM files WHERE product_id = $1`, [id]);
 
-    return db.query(sql, [id]);
+    return results.rows;
   },
-  search(params) {
+  async search(params) {
     const { filter, category } = params;
 
     let query = "";
@@ -41,7 +39,8 @@ module.exports = {
       GROUP BY products.id, categories.name
     `;
 
-    return db.query(query);
+    const results = await db.query(query);
+    return results.rows;
   },
 };
 
