@@ -47,17 +47,17 @@ const Base = {
       let values = [];
 
       Object.keys(fields).map(key => {
-        keys.push(key);
-        values.push(fields[key]);
+        keys.push(`${key}`);
+        values.push(`'${fields[key]}'`);
       });
 
       keys.join(",");
       values.join(",");
 
       const query = `
-        INSERT INTO ${this.table} (${keys}
+        INSERT INTO ${this.table} (${keys})
         VALUES (${values})
-        RETURNING id`;
+        RETURNING id;`;
 
       const results = await db.query(query);
       return results.rows[0].id;
