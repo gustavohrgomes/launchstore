@@ -5,8 +5,7 @@ const { formatPrice } = require("../../lib/utils");
 module.exports = {
   async index(req, res) {
     try {
-      let results,
-        params = {};
+      let params = {};
 
       const { filter, category } = req.query;
 
@@ -24,7 +23,7 @@ module.exports = {
 
       async function getImage(productId) {
         let files = await Product.files(productId);
-        files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`);
+        files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`);
 
         return files[0];
       }

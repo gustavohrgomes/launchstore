@@ -40,7 +40,7 @@ async function createProducts() {
       category_id: Math.ceil(Math.random() * 3),
       user_id: usersIds[Math.floor(Math.random() * totalUsers)],
       name: faker.name.title(),
-      description: faker.lorem.paragraphs(Math.ceil(Math.random() * 10)),
+      description: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
       old_price: faker.datatype.number(9999),
       price: faker.datatype.number(9999),
       quantity: faker.datatype.number(99),
@@ -53,7 +53,7 @@ async function createProducts() {
 
   let files = [];
 
-  while (files.length < 5) {
+  while (files.length < 50) {
     files.push({
       name: faker.image.image(),
       path: `public/images/placeholder.png`,

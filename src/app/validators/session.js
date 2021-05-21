@@ -49,8 +49,7 @@ async function forgot(req, res, next) {
 }
 
 async function reset(req, res, next) {
-  const { email, password, passwordRepeat } = req.body;
-  const { token } = req.query;
+  const { email, password, passwordRepeat, token } = req.body;
 
   const user = await User.findOne({ where: { email } });
 

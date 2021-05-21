@@ -83,8 +83,8 @@ module.exports = {
       req.session.destroy();
 
       // remover as imagens do sistema
-      promiseResults.map(results => {
-        results.rows.map(file => {
+      promiseResults.map(files => {
+        files.map(file => {
           try {
             unlinkSync(file.path);
           } catch (error) {

@@ -37,7 +37,7 @@ const Base = {
     const results = await find(filters, this.table);
     return results.rows[0];
   },
-  async findAll() {
+  async findAll(filters) {
     const results = await find(filters, this.table);
     return results.rows;
   },
