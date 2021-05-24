@@ -16,8 +16,8 @@ async function format(product) {
   const files = await getImages(product.id);
   product.img = files[0].src;
   product.files = files;
-  product.formattedOldPrice = formatPrice(product.old_price);
-  product.formattedPrice = formatPrice(product.price);
+  product.formatedOldPrice = formatPrice(product.old_price);
+  product.formatedPrice = formatPrice(product.price);
 
   const { day, month, hour, minutes } = date(product.updated_at);
 
@@ -34,7 +34,7 @@ const LoadService = {
     this.filter = filter;
     return this[service]();
   },
-  product() {
+  async product() {
     try {
       const product = await Product.findOne(this.filter);
       return format(product);
@@ -42,7 +42,7 @@ const LoadService = {
       throw new Error(error);
     }
   },
-  products() {
+  async products() {
     try {
       const products = await Product.findAll(this.filter);
       const productsPromise = products.map(format);
