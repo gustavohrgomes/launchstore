@@ -7,8 +7,8 @@ function IsUserAuthenticated(req, res, next) {
 }
 
 function IsUserLogged(req, res, next) {
-  if (req.session.userId) {
-    return res.redirect("/users");
+  if (!req.session.userId) {
+    return res.redirect("/login");
   }
 
   next();

@@ -5,6 +5,7 @@ const { IsUserLogged, IsUserAuthenticated } = require("../app/middlewares/sessio
 
 const SessionController = require("../app/controllers/SessionController");
 const UserController = require("../app/controllers/UserController");
+const OrderController = require("../app/controllers/OrderController");
 
 const UserValidator = require("../app/validators/user");
 const SessionValidator = require("../app/validators/session");
@@ -29,5 +30,7 @@ routes.put("/", UserValidator.update, UserController.put);
 routes.delete("/", UserController.delete);
 
 routes.get("/ads", UserController.ads);
+
+routes.post("/orders", IsUserLogged, OrderController.post);
 
 module.exports = routes;

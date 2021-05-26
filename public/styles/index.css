@@ -325,6 +325,14 @@ form .input-group #photos-preview img {
   gap: 24px;
 }
 
+.product-single .unavailable {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
+
+  padding: 8px 16px;
+}
+
 /* PRODUCT SINGLE GALLERY */
 .product-single .gallery {
   width: 100%;
