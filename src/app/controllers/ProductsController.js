@@ -1,130 +1,130 @@
-const { formatPrice, date } = require("../../lib/utils");
+const { unlinkSync } = require("fs");
 
 const Category = require("../models/Category");
 const Product = require("../models/Product");
 const File = require("../models/File");
 
+const LoadProductService = require("../services/LoadProductService");
+
 module.exports = {
-  create(req, res) {
-    // TODO: Get categories
+  async create(req, res) {
+    try {
+      const categories = await Category.findAll();
 
-    Category.all()
-      .then(function (results) {
-        const categories = results.rows;
-
-        return res.render("products/create.njk", { categories });
-      })
-      .catch(function (err) {
-        throw new Error(err);
-      });
+      return res.render("products/create.njk", { categories });
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async post(req, res) {
-    const keys = Object.keys(req.body);
+    try {
+      let { category_id, name, description, old_price, price, quantity, status } = req.body;
 
-    for (value of keys) {
-      if (req.body[value] == "") return res.send("Please, fill in all fields");
+      price = price.replace(/\D/g, "");
+
+      const product_id = await Product.create({
+        category_id,
+        user_id: req.session.userId,
+        name,
+        description,
+        old_price: old_price || price,
+        price,
+        quantity,
+        status: status || 1,
+      });
+
+      req.body.user_id = req.session.userId;
+
+      const filesPromise = req.files.map(file => File.create({ name: file.filename, path: file.path, product_id }));
+      await Promise.all(filesPromise);
+
+      return res.redirect(`/products/${product_id}`);
+    } catch (error) {
+      throw new Error(error);
     }
-
-    if (req.files.length == 0) {
-      return res.send("Please, send at least 1 image");
-    }
-
-    req.body.user_id = req.session.userId;
-
-    let results = await Product.create(req.body);
-    const productId = results.rows[0].id;
-
-    const filesPromise = req.files.map(file => File.create({ ...file, product_id: productId }));
-    await Promise.all(filesPromise);
-
-    return res.redirect(`/products/${productId}`);
   },
   async show(req, res) {
-    let results = await Product.find(req.params.id);
-    const product = results.rows[0];
+    try {
+      const product = await LoadProductService.load("product", {
+        where: {
+          id: req.params.id,
+        },
+      });
 
-    if (!product) return res.send("product not found");
-
-    const { day, month, hour, minutes } = date(product.updated_at);
-
-    product.oldPrice = formatPrice(product.old_price);
-    product.price = formatPrice(product.price);
-
-    product.published = {
-      day: `${day}/${month}`,
-      hour: `${hour}h${minutes}`,
-    };
-
-    results = await Product.files(product.id);
-    const files = results.rows.map(file => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`,
-    }));
-
-    return res.render("products/show.njk", { product, files });
+      return res.render("products/show.njk", { product });
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async edit(req, res) {
-    let results = await Product.find(req.params.id);
-    const product = results.rows[0];
+    try {
+      const product = await await LoadProductService.load("product", {
+        where: {
+          id: req.params.id,
+        },
+      });
 
-    if (!product) return res.send("Product not found");
+      const categories = await Category.findAll();
 
-    product.old_price = formatPrice(product.old_price);
-    product.price = formatPrice(product.price);
-
-    results = await Category.all();
-    const categories = results.rows;
-
-    results = await Product.files(product.id);
-    let files = results.rows;
-    files = files.map(file => ({
-      ...file,
-      src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`,
-    }));
-
-    return res.render("products/edit.njk", { product, categories, files });
+      return res.render("products/edit", { product, categories });
+    } catch (error) {
+      throw new Error(error);
+    }
   },
   async put(req, res) {
-    const keys = Object.keys(req.body);
+    try {
+      if (req.files.length != 0) {
+        const newFilesPromise = req.files.map(file => File.create({ ...file, product_id: req.body.id }));
 
-    for (value of keys) {
-      if (req.body[value] == "" && value != "removed_files") {
-        return res.send("Please, fill in all fields");
+        await Promise.all(newFilesPromise);
       }
+
+      if (req.body.removed_files) {
+        const removedFiles = req.body.removed_files.split(",");
+        const lastIndex = removedFiles.length - 1;
+        removedFiles.splice(lastIndex, 1);
+
+        const removedFilesPromise = removedFiles.map(id => File.delete(id));
+
+        await Promise.all(removedFilesPromise);
+      }
+
+      req.body.price = req.body.price.replace(/\D/g, "");
+
+      if (req.body.old_price !== req.body.price) {
+        const oldProduct = await Product.find(req.body.id);
+
+        req.body.old_price = oldProduct.price;
+      }
+
+      await Product.update(req.body.id, {
+        category_id: req.body.category_id,
+        name: req.body.name,
+        description: req.body.description,
+        old_price: req.body.old_price,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        status: req.body.status,
+      });
+
+      return res.redirect(`/products/${req.body.id}`);
+    } catch (error) {
+      throw new Error(error);
     }
-
-    if (req.files.length != 0) {
-      const newFilesPromise = req.files.map(file => File.create({ ...file, product_id: req.body.id }));
-
-      await Promise.all(newFilesPromise);
-    }
-
-    if (req.body.removed_files) {
-      const removedFiles = req.body.removed_files.split(",");
-      const lastIndex = removedFiles.length - 1;
-      removedFiles.splice(lastIndex, 1);
-
-      const removedFilesPromise = removedFiles.map(id => File.delete(id));
-
-      await Promise.all(removedFilesPromise);
-    }
-
-    req.body.price = req.body.price.replace(/\D/g, "");
-
-    if (req.body.old_price !== req.body.price) {
-      const oldProduct = await Product.find(req.body.id);
-
-      req.body.old_price = oldProduct.rows[0].price;
-    }
-
-    await Product.update(req.body);
-
-    return res.redirect(`/products/${req.body.id}`);
   },
   async delete(req, res) {
     const { id } = req.body;
 
+    const files = await Product.files(id);
     await Product.delete(id);
+
+    files.map(file => {
+      try {
+        unlinkSync(file.path);
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
 
     return res.redirect("/products/create");
   },

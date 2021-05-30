@@ -1,3 +1,6 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
 DROP DATABASE IF EXISTS "launchstore";
 CREATE DATABASE "launchstore";
 

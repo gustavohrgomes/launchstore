@@ -319,19 +319,18 @@ form .input-group #photos-preview img {
 }
 
 /* PRODUCT VIEW */
-.product-single {
-  background-color: white;
+.product-single .card-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 24px;
+}
 
-  padding: 2rem 1.5rem;
-  margin: 2rem auto;
+.product-single .unavailable {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
 
-  box-shadow: 2px 2px 6px -4px rgba(63, 63, 63, 0.9);
-
-  border: 1px solid #efefef;
-  border-radius: 4px;
+  padding: 8px 16px;
 }
 
 /* PRODUCT SINGLE GALLERY */
@@ -448,6 +447,7 @@ form .input-group #photos-preview img {
 
   padding-top: .5rem;
   border-top: 1px solid #eee;
+  margin-top: auto;
 }
 
 .product-single .price-buy .price {
@@ -546,7 +546,6 @@ form .input-group #photos-preview img {
 
 .search-products .header h2 {
   font-size: 1.6rem;
-  text-transform: capitalize;
 
   margin-bottom: .5rem;
 }
@@ -570,19 +569,6 @@ form .input-group #photos-preview img {
 .search-products nav ul li a:hover {
   color: black;
   font-weight: bold;
-}
-
-/* USER REGISTER */
-.user-register {
-  max-width: 500px;
-}
-
-.user-register form input[name="cep"],
-.user-register form input[name="password"],
-.user-register form input[name="passwordRepeat"],
-.user-register form input[name="cpf_cnpj"] {
-  display: block;
-  max-width: 60%;
 }
 
 /* Validate Errors */
